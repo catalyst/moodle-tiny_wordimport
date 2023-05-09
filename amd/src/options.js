@@ -40,6 +40,13 @@ export const register = (editor) => {
     registerOption(heading1StyleLevelName, {
         processor: 'int',
     });
+
+    // // Add .docx to the allowed file types.
+    // registerOption(filePickers, {
+    //     processor: 'object',
+    //     "default": {},
+    // });
+    // setOption(filePickers, filepicker);
 };
 
 /**
@@ -49,3 +56,15 @@ export const register = (editor) => {
  * @returns {object} The value of the heading1StyleLevel option
  */
 export const getHeading1StyleLevel = (editor) => editor.options.get(heading1StyleLevelName);
+
+
+const permissionsName = getPluginOptionName('tiny_media/plugin', 'permissions');
+
+
+/**
+ * Get the permissions configuration for the Tiny Word Import plugin.
+ *
+ * @param {TinyMCE} editor
+ * @returns {object}
+ */
+export const getEmbedPermissions = (editor) => editor.options.get(permissionsName);

@@ -31,6 +31,8 @@ import {
     addToolbarButtons,
 } from 'editor_tiny/utils';
 
+import uploadFile from 'editor_tiny/uploader';
+
 const getToolbarConfiguration = (instanceConfig) => {
     let toolbar = instanceConfig.toolbar;
     toolbar = addToolbarButtons(toolbar, 'content', [
@@ -53,5 +55,15 @@ export const configure = (instanceConfig) => {
     return {
         toolbar: getToolbarConfiguration(instanceConfig),
         menu: getMenuConfiguration(instanceConfig),
+
+        // eslint-disable-next-line camelcase
+        document_upload_handler: (blobInfo, progress) => uploadFile(
+            window.tinymce.activeEditor,
+            'document',
+            blobInfo.blob(),
+            blobInfo.filename(),
+            progress
+        ),
+
     };
 };

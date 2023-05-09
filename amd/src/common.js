@@ -27,6 +27,7 @@ export default {
     component,
     pluginName: `${component}/plugin`,
     icon: component,
+    filetype: '.docx',
     wordimportButtonName: `${component}_wordimport`,
     wordimportMenuItemName: `${component}_wordimport`,
 };

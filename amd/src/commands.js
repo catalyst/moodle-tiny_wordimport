@@ -27,16 +27,46 @@ import {
     component,
     wordimportButtonName,
     wordimportMenuItemName,
-    icon,
+    icon
 } from './common';
+// import {displayFilepicker} from 'editor_tiny/utils';
+import {getFilePicker} from 'editor_tiny/options';
 
 /**
- * Handle the action for your plugin.
+ * Helper to display a filepicker and return a Promise.
+ *
+ * The Promise will resolve when a file is selected, or reject if the file type is not found.
+ *
+ * @param {TinyMCE} editor
+ * @param {string} filetype
+ * @returns {Promise<object>} The file object returned by the filepicker
+ */
+export const displayFilepicker = (editor, filetype) => new Promise((resolve, reject) => {
+    var configuration = getFilePicker(editor, filetype);
+    // TODO: get rid of this hack.
+    configuration.accepted_types.push(".docx");
+    if (configuration) {
+        const options = {
+            ...configuration,
+            formcallback: resolve,
+        };
+        M.core_filepicker.show(Y, options);
+        return;
+    }
+    reject(`Unknown filetype ${filetype}`);
+});
+
+
+/**
+ * Handle the action for the Word Import
  * @param {TinyMCE.editor} editor The tinyMCE editor instance.
  */
-const handleAction = (editor) => {
-    // TODO Handle the action.
-    window.console.log(editor);
+const handleAction = async(editor) => {
+    // TODO: get rid of this hack.
+    displayFilepicker(editor, 'image').then((params) => {
+        window.console.log(params);
+        return;
+    }).catch();
 };
 
 /**
@@ -76,5 +106,6 @@ export const getSetup = async() => {
             text: wordimportMenuItemNameTitle,
             onAction: () => handleAction(editor),
         });
+
     };
 };

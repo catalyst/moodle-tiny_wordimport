@@ -1,0 +1,91 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * TinyMCE WordImport external API for filtering the wordimport.
+ *
+ * @package    tiny_wordimport
+ * @copyright  2022 Huong Nguyen <huongnv13@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace tiny_wordimport\external;
+
+use context;
+use external_api;
+use external_function_parameters;
+use external_single_structure;
+use external_value;
+
+
+/**
+ * TinyMCE WordImport external API for processing the word document to import.
+ *
+ * @package    tiny_wordimport
+ * @copyright  2023 André Menrath <andre.menrath@uni-graz.at>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class import extends external_api {
+
+    /**
+     * Describes the parameters for the wordimport.
+     *
+     * @return external_function_parameters
+     */
+    public static function execute_parameters(): external_function_parameters {
+        return new external_function_parameters([
+            'contextid' => new external_value(PARAM_INT, 'The context ID', VALUE_REQUIRED),
+            'content' => new external_value(PARAM_RAW, 'The wordimport content', VALUE_REQUIRED)
+        ]);
+    }
+
+    /**
+     * External function for processing the wordimport.
+     *
+     * @param int $contextid Context ID.
+     * @param string $content WordImport content.
+     * @return array
+     */
+    public static function execute(int $contextid, string $content): array {
+        [
+            'contextid' => $contextid,
+            'content' => $content
+        ] = self::validate_parameters(self::execute_parameters(), [
+            'contextid' => $contextid,
+            'content' => $content
+        ]);
+
+        $context = context::instance_by_id($contextid);
+        self::validate_context($context);
+
+        $result = 'TODO';
+
+        return [
+            'content' => $result,
+        ];
+    }
+
+    /**
+     * Describes the data returned from the external function.
+     *
+     * @return external_single_structure
+     */
+    public static function execute_returns(): external_single_structure {
+        return new external_single_structure([
+            'content' => new external_value(PARAM_RAW, 'Processed content'),
+        ]);
+    }
+}

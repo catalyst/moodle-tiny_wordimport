@@ -26,4 +26,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tiny_wordimport';
 $plugin->release = '0.1.0';
-$plugin->version = 2023050800;
+$plugin->version = 2023050804;
