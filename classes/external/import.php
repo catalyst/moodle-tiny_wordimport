@@ -18,17 +18,17 @@
  * TinyMCE WordImport external API for filtering the wordimport.
  *
  * @package    tiny_wordimport
- * @copyright  2022 Huong Nguyen <huongnv13@gmail.com>
+ * @copyright  2023 André Menrath <andre.menrath@uni-graz.at>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace tiny_wordimport\external;
 
-use context;
 use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
+use tiny_wordimport\converter;
 
 
 /**
@@ -36,6 +36,7 @@ use external_value;
  *
  * @package    tiny_wordimport
  * @copyright  2023 André Menrath <andre.menrath@uni-graz.at>
+ *             2023 Huong Nguyen <huongnv13@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class import extends external_api {
@@ -47,8 +48,9 @@ class import extends external_api {
      */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
-            'contextid' => new external_value(PARAM_INT, 'The context ID', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_RAW, 'The wordimport content', VALUE_REQUIRED)
+            'itemid' => new external_value(PARAM_RAW, 'The file id of the draft upload', VALUE_REQUIRED),
+            //'contextid' => new external_value(PARAM_INT, 'The context ID', VALUE_REQUIRED),
+            'filename' => new external_value(PARAM_TEXT, 'The filename of the imported word file', VALUE_REQUIRED)
         ]);
     }
 
@@ -59,22 +61,54 @@ class import extends external_api {
      * @param string $content WordImport content.
      * @return array
      */
-    public static function execute(int $contextid, string $content): array {
+    public static function execute(string $itemid, string $filename): array {
+        global $USER;
         [
-            'contextid' => $contextid,
-            'content' => $content
+            'itemid' => $itemid,
+            //'contextid' => $contextid,
+            'filename' => $filename
         ] = self::validate_parameters(self::execute_parameters(), [
-            'contextid' => $contextid,
-            'content' => $content
+            'itemid' => $itemid,
+            //'contextid' => $contextid,
+            'filename' => $filename
         ]);
 
-        $context = context::instance_by_id($contextid);
-        self::validate_context($context);
+        // $context = context::instance_by_id($contextid);
+        // self::validate_context($context);
 
-        $result = 'TODO';
+        // // This part is forked from atto_wordimport by Eoin Campbell.
+        // list($context, $course, $cm) = get_context_info_array($contextid);
+
+        // // Check that this user is logged in before proceeding.
+        // require_login($course, false, $cm);
+
+        // Get the reference only of this users' uploaded file, to avoid rogue users' accessing other peoples files.
+        $fs = get_file_storage();
+        $usercontext = \context_user::instance($USER->id);
+        if (!$file = $fs->get_file($usercontext->id, 'user', 'draft', $itemid, '/', basename($filename))) {
+            // File is not readable.
+            throw new \moodle_exception(get_string('errorreadingfile', 'error', basename($filename)));
+        }
+
+        // Save the uploaded file to a folder so we can process it using the PHP Zip library.
+        if (!$tmpfilename = $file->copy_content_to_temp()) {
+            // Cannot save file.
+            throw new \moodle_exception(get_string('errorcreatingfile', 'error', basename($filename)));
+        } else {
+            // Delete it from the draft file area to avoid possible name-clash messages if it is re-uploaded in the same edit.
+            $file->delete();
+        }
+
+        // Convert the Word file into XHTML, store any images, and delete the temporary HTML file once we're finished.
+        $htmltext = converter::docx_to_xhtml($tmpfilename, $usercontext->id, $itemid);
+
+        if (!$htmltext) {
+            // Error processing upload file.
+            throw new \moodle_exception(get_string('cannotuploadfile', 'error'));
+        }
 
         return [
-            'content' => $result,
+            'html' => $htmltext,
         ];
     }
 
@@ -85,7 +119,7 @@ class import extends external_api {
      */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
-            'content' => new external_value(PARAM_RAW, 'Processed content'),
+            'html' => new external_value(PARAM_RAW, 'Processed content in raw html format'),
         ]);
     }
 }

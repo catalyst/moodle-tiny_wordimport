@@ -29,7 +29,8 @@ import {
     wordimportMenuItemName,
     icon
 } from './common';
-// import {displayFilepicker} from 'editor_tiny/utils';
+import {getProcessedDocxContent} from './repository';
+
 import {getFilePicker} from 'editor_tiny/options';
 
 /**
@@ -44,7 +45,7 @@ import {getFilePicker} from 'editor_tiny/options';
 export const displayFilepicker = (editor, filetype) => new Promise((resolve, reject) => {
     var configuration = getFilePicker(editor, filetype);
     // TODO: get rid of this hack.
-    configuration.accepted_types.push(".docx");
+    configuration.accepted_types = [".docx"];
     if (configuration) {
         const options = {
             ...configuration,
@@ -56,15 +57,17 @@ export const displayFilepicker = (editor, filetype) => new Promise((resolve, rej
     reject(`Unknown filetype ${filetype}`);
 });
 
-
 /**
  * Handle the action for the Word Import
  * @param {TinyMCE.editor} editor The tinyMCE editor instance.
  */
 const handleAction = async(editor) => {
     // TODO: get rid of this hack.
-    displayFilepicker(editor, 'image').then((params) => {
+    displayFilepicker(editor, 'image').then(async(params) => {
         window.console.log(params);
+        const content = await getProcessedDocxContent(params.id, params.file);
+        window.console.log(content);
+        editor.setContent(content.html, {format: 'raw'});
         return;
     }).catch();
 };
