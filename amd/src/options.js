@@ -21,7 +21,11 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import {getPluginOptionName} from 'editor_tiny/options';
+import {
+    getContextId,
+    getPluginOptionName,
+} from 'editor_tiny/options';
+
 import {pluginName} from './common';
 
 // Helper variables for the option names.
@@ -60,7 +64,6 @@ export const getHeading1StyleLevel = (editor) => editor.options.get(heading1Styl
 
 const permissionsName = getPluginOptionName('tiny_media/plugin', 'permissions');
 
-
 /**
  * Get the permissions configuration for the Tiny Word Import plugin.
  *
@@ -68,3 +71,7 @@ const permissionsName = getPluginOptionName('tiny_media/plugin', 'permissions');
  * @returns {object}
  */
 export const getEmbedPermissions = (editor) => editor.options.get(permissionsName);
+
+export {
+    getContextId
+};

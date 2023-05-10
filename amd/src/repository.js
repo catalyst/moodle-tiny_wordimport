@@ -24,10 +24,11 @@
 
 import {call as fetchMany} from 'core/ajax';
 
-export const getProcessedDocxContent = (itemid, filename) => fetchMany([{
+export const getProcessedDocxContent = (itemid, contextid, filename) => fetchMany([{
     methodname: 'tiny_wordimport_get_processed_content',
     args: {
         itemid,
+        contextid,
         filename
     },
 }])[0];

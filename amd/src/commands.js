@@ -21,17 +21,24 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import {getButtonImage} from 'editor_tiny/utils';
+
 import {get_string as getString} from 'core/str';
+import {getButtonImage} from 'editor_tiny/utils';
+
+import {
+    getFilePicker,
+    getContextId
+} from 'editor_tiny/options';
+
 import {
     component,
     wordimportButtonName,
     wordimportMenuItemName,
     icon
 } from './common';
+
 import {getProcessedDocxContent} from './repository';
 
-import {getFilePicker} from 'editor_tiny/options';
 
 /**
  * Helper to display a filepicker and return a Promise.
@@ -64,10 +71,14 @@ export const displayFilepicker = (editor, filetype) => new Promise((resolve, rej
 const handleAction = async(editor) => {
     // TODO: get rid of this hack.
     displayFilepicker(editor, 'image').then(async(params) => {
-        window.console.log(params);
-        const content = await getProcessedDocxContent(params.id, params.file);
-        window.console.log(content);
-        editor.setContent(content.html, {format: 'raw'});
+        // Call the external webservice which wraps the converter functions from booktool_wordimport to get the content as HTML.
+        const content = await getProcessedDocxContent(params.id, getContextId(editor), params.file);
+        // Get the current selection.
+        const selection = editor.selection;
+        // Get the current range.
+        const range = selection.getRng();
+        // Insert raw HTML content at the current cursor position.
+        range.insertNode(range.createContextualFragment(content.html));
         return;
     }).catch();
 };

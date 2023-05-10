@@ -24,6 +24,7 @@
 
 namespace tiny_wordimport\external;
 
+use context;
 use external_api;
 use external_function_parameters;
 use external_single_structure;
@@ -49,7 +50,7 @@ class import extends external_api {
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
             'itemid' => new external_value(PARAM_RAW, 'The file id of the draft upload', VALUE_REQUIRED),
-            //'contextid' => new external_value(PARAM_INT, 'The context ID', VALUE_REQUIRED),
+            'contextid' => new external_value(PARAM_INT, 'The context ID', VALUE_REQUIRED),
             'filename' => new external_value(PARAM_TEXT, 'The filename of the imported word file', VALUE_REQUIRED)
         ]);
     }
@@ -61,26 +62,26 @@ class import extends external_api {
      * @param string $content WordImport content.
      * @return array
      */
-    public static function execute(string $itemid, string $filename): array {
+    public static function execute(int $itemid, int $contextid, string $filename): array {
         global $USER;
         [
             'itemid' => $itemid,
-            //'contextid' => $contextid,
+            'contextid' => $contextid,
             'filename' => $filename
         ] = self::validate_parameters(self::execute_parameters(), [
             'itemid' => $itemid,
-            //'contextid' => $contextid,
+            'contextid' => $contextid,
             'filename' => $filename
         ]);
 
-        // $context = context::instance_by_id($contextid);
-        // self::validate_context($context);
+        $context = context::instance_by_id($contextid);
+        self::validate_context($context);
 
-        // // This part is forked from atto_wordimport by Eoin Campbell.
-        // list($context, $course, $cm) = get_context_info_array($contextid);
+        // The rest of this function is forked from atto_wordimport by Eoin Campbell.
+        list($context, $course, $cm) = get_context_info_array($contextid);
 
-        // // Check that this user is logged in before proceeding.
-        // require_login($course, false, $cm);
+        // Check that this user is logged in before proceeding.
+        require_login($course, false, $cm);
 
         // Get the reference only of this users' uploaded file, to avoid rogue users' accessing other peoples files.
         $fs = get_file_storage();
