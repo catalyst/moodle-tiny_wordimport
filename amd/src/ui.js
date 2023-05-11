@@ -14,21 +14,24 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Common values helper for the Moodle tiny_wordimport plugin.
+ * Tiny tiny_wordimport for Moodle.
  *
- * @module      tiny_wordimport/common
+ * @module      tiny_wordimport/ui
  * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-const component = 'tiny_wordimport';
+const NOTIFICATION_TIMEOUT_INDEFINITE = -1;
 
-export default {
-    component,
-    pluginName: `${component}/plugin`,
-    icon: component,
-    filetype: '.docx',
-    wordimportButtonName: `${component}_wordimport`,
-    wordimportMenuItemName: `${component}_wordimport`,
-    allowedFileType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+export const displayUploadNotification = (editor) => {
+    return editor.notificationManager.open({
+        text: editor.translate('Uploading document...'),
+        type: 'info',
+        timeout: NOTIFICATION_TIMEOUT_INDEFINITE,
+        progressBar: true,
+    });
+};
+
+export const updateNotificationProgress = (notification, progress) => {
+    notification.progressBar.value(progress);
 };

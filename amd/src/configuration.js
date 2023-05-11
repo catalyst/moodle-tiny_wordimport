@@ -16,7 +16,7 @@
 /**
  * Tiny tiny_wordimport for Moodle.
  *
- * @module      plugintype_pluginname/plugin
+ * @module      tiny_wordimport/plugin
  * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

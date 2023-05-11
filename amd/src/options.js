@@ -16,7 +16,7 @@
 /**
  * Options helper for the Moodle tiny_wordimport plugin.
  *
- * @module      plugintype_pluginname/options
+ * @module      tiny_wordimport/options
  * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -57,7 +57,6 @@ export const register = (editor) => {
     // Push the additional filepicker option to the editors setting.
     var filepicker = getOption(filePickers);
     filepicker.docx = getWordFilePickerOption(editor);
-    window.console.log(filepicker);
     setOption(filePickers, filepicker);
 };
 
