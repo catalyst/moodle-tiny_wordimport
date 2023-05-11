@@ -44,7 +44,7 @@ const getToolbarConfiguration = (instanceConfig) => {
 
 const getMenuConfiguration = (instanceConfig) => {
     let menu = instanceConfig.menu;
-    menu = addMenubarItem(menu, 'file', [
+    menu = addMenubarItem(menu, 'insert', [
         wordimportMenuItemName,
     ].join(' '));
 

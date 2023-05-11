@@ -24,6 +24,8 @@
 
 import {get_string as getString} from 'core/str';
 import {getButtonImage} from 'editor_tiny/utils';
+import uploadFile from 'editor_tiny/uploader';
+import {add as addToast} from 'core/toast';
 
 import {
     getFilePicker,
@@ -31,6 +33,7 @@ import {
 } from 'editor_tiny/options';
 
 import {
+    allowedFileType,
     component,
     wordimportButtonName,
     wordimportMenuItemName,
@@ -51,8 +54,6 @@ import {getProcessedDocxContent} from './repository';
  */
 export const displayFilepicker = (editor, filetype) => new Promise((resolve, reject) => {
     var configuration = getFilePicker(editor, filetype);
-    // TODO: get rid of this hack.
-    configuration.accepted_types = [".docx"];
     if (configuration) {
         const options = {
             ...configuration,
@@ -64,24 +65,31 @@ export const displayFilepicker = (editor, filetype) => new Promise((resolve, rej
     reject(`Unknown filetype ${filetype}`);
 });
 
+
+const insertRawHtml = (editor, content) => {
+    // Get the current selection.
+    const selection = editor.selection;
+    // Get the current range.
+    const range = selection.getRng();
+    // Insert raw HTML content at the current cursor position.
+    range.insertNode(range.createContextualFragment(content.html));
+};
+
 /**
  * Handle the action for the Word Import
  * @param {TinyMCE.editor} editor The tinyMCE editor instance.
  */
 const handleAction = async(editor) => {
     // TODO: get rid of this hack.
-    displayFilepicker(editor, 'image').then(async(params) => {
+    displayFilepicker(editor, 'docx').then(async(params) => {
         // Call the external webservice which wraps the converter functions from booktool_wordimport to get the content as HTML.
+        window.console.log(params);
         const content = await getProcessedDocxContent(params.id, getContextId(editor), params.file);
-        // Get the current selection.
-        const selection = editor.selection;
-        // Get the current range.
-        const range = selection.getRng();
-        // Insert raw HTML content at the current cursor position.
-        range.insertNode(range.createContextualFragment(content.html));
+        insertRawHtml(editor, content);
         return;
     }).catch();
 };
+
 
 /**
  * Get the setup function for the buttons.
@@ -119,6 +127,41 @@ export const getSetup = async() => {
             icon,
             text: wordimportMenuItemNameTitle,
             onAction: () => handleAction(editor),
+        });
+
+        editor.on('dragdrop drop', async(e) => {
+            if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length === 1) {
+                const file = e.dataTransfer.files[0];
+                if (file.type === allowedFileType) {
+                    e.preventDefault();
+                    try {
+                        const reader = new FileReader();
+                        reader.readAsArrayBuffer(file);
+                        reader.onload = async() => {
+                            const blob = new Blob([reader.result], {type: file.type});
+                            var notification = editor.notificationManager.open({
+                                text: editor.translate('Uploading document...'),
+                                type: 'info',
+                                timeout: -1,
+                                progressBar: true
+                            });
+                            window.console.log(notification);
+                            const draftFileURL = await uploadFile(editor, 'docx', blob, file.name, (progress) => {
+                                notification.progressBar.value(progress);
+                            });
+                            notification.close();
+                            // Because uploadFile returns only the url (see `response.newfile.url`) we need to extract the draftid.
+                            const draftid = draftFileURL.match(/\/draft\/(\d+)\//)[1];
+                            const content = await getProcessedDocxContent(draftid, getContextId(editor), file.name);
+                            insertRawHtml(editor, content);
+                        };
+                    } catch (error) {
+                        addToast(await getString('uploadfailed', component, {error}), {
+                            type: 'error',
+                        });
+                    }
+                }
+            }
         });
 
     };

@@ -30,6 +30,7 @@ import {pluginName} from './common';
 
 // Helper variables for the option names.
 const heading1StyleLevelName = getPluginOptionName(pluginName, 'heading1StyleLevel');
+const wordFilePickerOptionName = getPluginOptionName(pluginName, 'wordFilePickerOption');
 
 /**
  * Options registration function.
@@ -38,6 +39,9 @@ const heading1StyleLevelName = getPluginOptionName(pluginName, 'heading1StyleLev
  */
 export const register = (editor) => {
     const registerOption = editor.options.register;
+    const getOption = editor.options.get;
+    const setOption = editor.options.set;
+    const filePickers = 'moodle:filepickers';
 
     // For each option, register it with the editor.
     // Valid type are defined in https://www.tiny.cloud/docs/tinymce/6/apis/tinymce.editoroptions/
@@ -45,12 +49,16 @@ export const register = (editor) => {
         processor: 'int',
     });
 
-    // // Add .docx to the allowed file types.
-    // registerOption(filePickers, {
-    //     processor: 'object',
-    //     "default": {},
-    // });
-    // setOption(filePickers, filepicker);
+    registerOption(wordFilePickerOptionName, {
+        processor: 'object',
+        "default": {},
+    });
+
+    // Push the additional filepicker option to the editors setting.
+    var filepicker = getOption(filePickers);
+    filepicker.docx = getWordFilePickerOption(editor);
+    window.console.log(filepicker);
+    setOption(filePickers, filepicker);
 };
 
 /**
@@ -61,6 +69,13 @@ export const register = (editor) => {
  */
 export const getHeading1StyleLevel = (editor) => editor.options.get(heading1StyleLevelName);
 
+/**
+ * Fetch the wordFilePickerOptionName value for this editor instance.
+ *
+ * @param {tinyMCE} editor The editor instance to fetch the value for
+ * @returns {object} The value of the heading1StyleLevel option
+ */
+export const getWordFilePickerOption = (editor) => editor.options.get(wordFilePickerOptionName);
 
 const permissionsName = getPluginOptionName('tiny_media/plugin', 'permissions');
 

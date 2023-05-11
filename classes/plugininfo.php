@@ -50,10 +50,22 @@ class plugininfo extends plugin implements plugin_with_configuration, plugin_wit
         array $fpoptions,
         ?\editor_tiny\editor $editor = null
     ): array {
+        // Test.
+        $args = new \stdClass();
+        // Need these three to filter repositories list.
+        $args->accepted_types = array('.docx');
+        $args->return_types = (FILE_INTERNAL | FILE_EXTERNAL);
+        $args->context = $context;
+        $args->env = 'filepicker';
+        $filepicker = initialise_filepicker($args);
+        $filepicker->context = $context;
+        $filepicker->client_id = uniqid();
+        $filepicker->env = 'editor';
         return [
             // Your values go here.
             // These will be mapped to a namespaced EditorOption in Tiny.
             'heading1StyleLevel' => 'TODO Calculate your values here',
+            'wordFilePickerOption' => $filepicker
         ];
     }
 }

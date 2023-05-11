@@ -30,4 +30,5 @@ export default {
     filetype: '.docx',
     wordimportButtonName: `${component}_wordimport`,
     wordimportMenuItemName: `${component}_wordimport`,
+    allowedFileType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 };
