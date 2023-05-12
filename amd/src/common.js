@@ -23,6 +23,7 @@
  */
 
 const component = 'tiny_wordimport';
+const DOCX_MIME_TYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
 export default {
     component,
@@ -31,5 +32,5 @@ export default {
     filetype: '.docx',
     wordimportButtonName: `${component}_wordimport`,
     wordimportMenuItemName: `${component}_wordimport`,
-    allowedFileType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    allowedFileType: DOCX_MIME_TYPE
 };
