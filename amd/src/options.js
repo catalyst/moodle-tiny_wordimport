@@ -88,7 +88,3 @@ const permissionsName = getPluginOptionName('tiny_media/plugin', 'permissions');
  * @returns {object}
  */
 export const getEmbedPermissions = (editor) => editor.options.get(permissionsName);
-
-export {
-    getContextId
-};
