@@ -17,7 +17,8 @@
  * Options helper for the Moodle tiny_wordimport plugin.
  *
  * @module      tiny_wordimport/options
- * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
+ * @copyright   2023 University of Graz
+ * @author      André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -54,9 +55,11 @@ export const register = (editor) => {
         "default": {},
     });
 
-    // Push the additional filepicker option to the editors setting.
+    // Get the current filepicker setting which contains the allowed upload file types.
     var filepicker = getOption(filePickers);
+    // Add docx as additional file type to the allowance list for uploads.
     filepicker.docx = getWordFilePickerOption(editor);
+    // Update the filepicker option.
     setOption(filePickers, filepicker);
 };
 

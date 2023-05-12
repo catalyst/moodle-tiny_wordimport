@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * External (web service) service functions for the Docx import plugin for the Moodle TinyMCE 6 editor.
+ * External (web service) service functions for the .docx import plugin for the Moodle TinyMCE 6 editor.
  *
  * @module    tiny_wordimport/repository
  * @copyright 2023 University of Graz

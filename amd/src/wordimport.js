@@ -17,7 +17,8 @@
  * Tiny tiny_wordimport for Moodle.
  *
  * @module      tiny_wordimport/wordimport
- * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
+ * @copyright   2023 University of Graz
+ * @author      André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -87,6 +88,7 @@ const insertRawHtml = (editor, content) => {
  *
  * @param {TinyMCE.editor} editor
  * @param {DataTransfer} file
+ * @returns {string} the draft id of the uploaded draft file
  */
 const uploadDraggedFile = async(editor, file) => {
     const blob = await readAsArrayBuffer(file);
@@ -98,14 +100,29 @@ const uploadDraggedFile = async(editor, file) => {
     return extractDraftId(draftFileUrl);
 };
 
+/**
+ * Helper function to read dragged and dropped file as Blob.
+ *
+ * @param {DataTransfer} file
+ * @returns {Promise}
+ */
 const readAsArrayBuffer = (file) => {
     return new Promise((resolve) => {
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
-        reader.onload = () => resolve(new Blob([reader.result], { type: file.type }));
+        reader.onload = () => resolve(new Blob([reader.result], {type: file.type}));
     });
 };
 
+/**
+ * Helper function get the draft id from the uploaded draft file.
+ *
+ * This is necessary cause we use the tiny_editor function uploadFile of the moodle core, which
+ * removes this information, and directly extracts and returns the url from the upload object.
+ *
+ * @param {string} draftFileUrl
+ * @returns {string} the draft id of the uploaded draft file
+ */
 const extractDraftId = (draftFileUrl) => {
     return draftFileUrl.match(/\/draft\/(\d+)\//)[1];
 };

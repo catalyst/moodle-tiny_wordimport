@@ -17,7 +17,8 @@
  * Commands helper for the Moodle tiny_wordimport plugin.
  *
  * @module      tiny_wordimport/commands
- * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
+ * @copyright   2023 University of Graz
+ * @author      André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -74,6 +75,7 @@ export const getSetup = async() => {
             onAction: () => importWordFileHandler(editor),
         });
 
+        // Add a handler which allows dragging and dropping .docx files directly into the editor.
         editor.on('dragdrop drop', async(event) => {
             const {files} = event.dataTransfer || {};
             if (!files || files.length !== 1) {

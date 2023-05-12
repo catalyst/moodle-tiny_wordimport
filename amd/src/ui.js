@@ -17,12 +17,19 @@
  * Tiny tiny_wordimport for Moodle.
  *
  * @module      tiny_wordimport/ui
- * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
+ * @copyright   2023 University of Graz
+ * @author      André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 const NOTIFICATION_TIMEOUT_INDEFINITE = -1;
 
+/**
+ * Opens a builtin notification within the TinyMCE 6 editor
+ *
+ * @param {tinyMCE} editor The editor instance to fetch the value for
+ * @returns {void}
+ */
 export const displayUploadNotification = (editor) => {
     return editor.notificationManager.open({
         text: editor.translate('Uploading document...'),
@@ -32,6 +39,12 @@ export const displayUploadNotification = (editor) => {
     });
 };
 
+/**
+ * Update the notification for the file upload process
+ *
+ * @param {object} notification The notification object
+ * @param {int} progress The progress of the upload in percent
+ */
 export const updateNotificationProgress = (notification, progress) => {
     notification.progressBar.value(Math.round(progress));
 };

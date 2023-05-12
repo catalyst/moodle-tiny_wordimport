@@ -40,7 +40,7 @@ use tiny_wordimport\converter;
  *             2023 Huong Nguyen <huongnv13@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class import extends external_api {
+class wordimport extends external_api {
 
     /**
      * Describes the parameters for the wordimport.

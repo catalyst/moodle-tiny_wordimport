@@ -17,7 +17,8 @@
  * Tiny tiny_wordimport for Moodle.
  *
  * @module      tiny_wordimport/plugin
- * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
+ * @copyright   2023 University of Graz
+ * @author      André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,8 +31,6 @@ import {
     addMenubarItem,
     addToolbarButtons,
 } from 'editor_tiny/utils';
-
-import uploadFile from 'editor_tiny/uploader';
 
 const getToolbarConfiguration = (instanceConfig) => {
     let toolbar = instanceConfig.toolbar;
@@ -55,15 +54,5 @@ export const configure = (instanceConfig) => {
     return {
         toolbar: getToolbarConfiguration(instanceConfig),
         menu: getMenuConfiguration(instanceConfig),
-
-        // eslint-disable-next-line camelcase
-        document_upload_handler: (blobInfo, progress) => uploadFile(
-            window.tinymce.activeEditor,
-            'document',
-            blobInfo.blob(),
-            blobInfo.filename(),
-            progress
-        ),
-
     };
 };

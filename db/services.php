@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 
 $functions = [
     'tiny_wordimport_get_processed_content' => array(
-        'classname' => 'tiny_wordimport\external\import',
+        'classname' => 'tiny_wordimport\external\wordimport',
         'methodname' => 'execute',
         'description' => 'Get the processed content of the uploaded docx file.',
         'type' => 'read',

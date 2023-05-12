@@ -17,7 +17,8 @@
  * Common values helper for the Moodle tiny_wordimport plugin.
  *
  * @module      tiny_wordimport/common
- * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
+ * @copyright   2023 University of Graz
+ * @author      André Menrath <andre.menrath@uni-graz.at>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
