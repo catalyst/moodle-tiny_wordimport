@@ -33,5 +33,5 @@ export const displayUploadNotification = (editor) => {
 };
 
 export const updateNotificationProgress = (notification, progress) => {
-    notification.progressBar.value(progress);
+    notification.progressBar.value(Math.round(progress));
 };
