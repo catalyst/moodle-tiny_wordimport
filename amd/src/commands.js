@@ -22,7 +22,6 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 import {get_string as getString} from 'core/str';
 import {getButtonImage} from 'editor_tiny/utils';
 import {

@@ -23,7 +23,6 @@
  */
 
 import {
-    getContextId,
     getPluginOptionName,
 } from 'editor_tiny/options';
 
