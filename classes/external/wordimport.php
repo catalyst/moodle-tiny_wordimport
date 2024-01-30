@@ -51,7 +51,7 @@ class wordimport extends external_api {
         return new external_function_parameters([
             'itemid' => new external_value(PARAM_RAW, 'The file id of the draft upload', VALUE_REQUIRED),
             'contextid' => new external_value(PARAM_INT, 'The context ID', VALUE_REQUIRED),
-            'filename' => new external_value(PARAM_TEXT, 'The filename of the imported word file', VALUE_REQUIRED)
+            'filename' => new external_value(PARAM_TEXT, 'The filename of the imported word file', VALUE_REQUIRED),
         ]);
     }
 
@@ -71,7 +71,7 @@ class wordimport extends external_api {
         ] = self::validate_parameters(self::execute_parameters(), [
             'itemid' => $itemid,
             'contextid' => $contextid,
-            'filename' => $filename
+            'filename' => $filename,
         ]);
 
         $context = context::instance_by_id($contextid);

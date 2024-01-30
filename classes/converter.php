@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/filestorage/file_storage.php');
 require_once($CFG->dirroot . '/repository/lib.php');
 
-use \booktool_wordimport\wordconverter;
+use booktool_wordimport\wordconverter;
 
 class converter {
     /**
@@ -47,22 +47,22 @@ class converter {
         global $CFG, $USER;
 
         // Convert the Word file content into XHTML and an array of images.
-        $imagesforzipping = array();
+        $imagesforzipping = [];
         $word2xml = new wordconverter();
         $word2xml->set_heading1styleoffset((int) get_config('tiny_wordimport', 'heading1stylelevel'));
         $xsltoutput = $word2xml->import($wordfilename, $imagesforzipping);
         $htmlcontent = $word2xml->htmlbody($xsltoutput);
 
         // Prepare filerecord array to create each new image file in the user/draft file area for the current user.
-        $fileinfo = array(
+        $fileinfo = [
             'contextid' => $usercontextid,
             'component' => 'user',
             'filearea' => 'draft',
             'userid' => $USER->id,
             'itemid' => $draftitemid,
             'filepath' => '/',
-            'filename' => ''
-            );
+            'filename' => '',
+            ];
         $fs = get_file_storage();
 
         // Store the image files into the file area.

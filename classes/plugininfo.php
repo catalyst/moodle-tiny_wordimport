@@ -53,7 +53,7 @@ class plugininfo extends plugin implements plugin_with_configuration, plugin_wit
         // Test.
         $args = new \stdClass();
         // Need these three to filter repositories list.
-        $args->accepted_types = array('.docx');
+        $args->accepted_types = ['.docx'];
         $args->return_types = (FILE_INTERNAL | FILE_EXTERNAL);
         $args->context = $context;
         $args->env = 'filepicker';
@@ -65,7 +65,7 @@ class plugininfo extends plugin implements plugin_with_configuration, plugin_wit
             // Your values go here.
             // These will be mapped to a namespaced EditorOption in Tiny.
             'heading1StyleLevel' => 'TODO Calculate your values here',
-            'wordFilePickerOption' => $filepicker
+            'wordFilePickerOption' => $filepicker,
         ];
     }
 }
