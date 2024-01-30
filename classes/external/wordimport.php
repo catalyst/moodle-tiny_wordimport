@@ -24,13 +24,14 @@
 
 namespace tiny_wordimport\external;
 
-use context;
-use external_api;
-use external_function_parameters;
-use external_single_structure;
-use external_value;
+use core\context;
+use core\context\user;
+use core_external\external_api;
+use core_external\external_function_parameters;
+use core_external\external_single_structure;
+use core_external\external_value;
+use moodle_exception;
 use tiny_wordimport\converter;
-
 
 /**
  * TinyMCE WordImport external API for processing the word document to import.
@@ -41,7 +42,6 @@ use tiny_wordimport\converter;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class wordimport extends external_api {
-
     /**
      * Describes the parameters for the wordimport.
      *
@@ -58,8 +58,9 @@ class wordimport extends external_api {
     /**
      * External function for processing the wordimport.
      *
-     * @param int $contextid Context ID.
-     * @param string $content WordImport content.
+     * @param int    $itemid The id of the uploaded item.
+     * @param int    $contextid Context ID.
+     * @param string $filename The filename of the uploaded file.
      * @return array
      */
     public static function execute(int $itemid, int $contextid, string $filename): array {
@@ -85,16 +86,16 @@ class wordimport extends external_api {
 
         // Get the reference only of this users' uploaded file, to avoid rogue users' accessing other peoples files.
         $fs = get_file_storage();
-        $usercontext = \context_user::instance($USER->id);
+        $usercontext = user::instance($USER->id);
         if (!$file = $fs->get_file($usercontext->id, 'user', 'draft', $itemid, '/', basename($filename))) {
             // File is not readable.
-            throw new \moodle_exception(get_string('errorreadingfile', 'error', basename($filename)));
+            throw new moodle_exception(get_string('errorreadingfile', 'error', basename($filename)));
         }
 
         // Save the uploaded file to a folder so we can process it using the PHP Zip library.
         if (!$tmpfilename = $file->copy_content_to_temp()) {
             // Cannot save file.
-            throw new \moodle_exception(get_string('errorcreatingfile', 'error', basename($filename)));
+            throw new moodle_exception(get_string('errorcreatingfile', 'error', basename($filename)));
         } else {
             // Delete it from the draft file area to avoid possible name-clash messages if it is re-uploaded in the same edit.
             $file->delete();
@@ -105,7 +106,7 @@ class wordimport extends external_api {
 
         if (!$htmltext) {
             // Error processing upload file.
-            throw new \moodle_exception(get_string('cannotuploadfile', 'error'));
+            throw new moodle_exception(get_string('cannotuploadfile', 'error'));
         }
 
         return [

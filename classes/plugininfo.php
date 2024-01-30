@@ -32,19 +32,37 @@ use editor_tiny\plugin_with_menuitems;
 use editor_tiny\plugin_with_configuration;
 
 class plugininfo extends plugin implements plugin_with_configuration, plugin_with_buttons, plugin_with_menuitems {
-
+    /**
+     * Add buttons to Tiny-Editor.
+     *
+     * @return array
+     */
     public static function get_available_buttons(): array {
         return [
             'tiny_wordimport/plugin',
         ];
     }
 
+    /**
+     * Add Menu entry to Tiny-Editor.
+     *
+     * @return array
+     */
     public static function get_available_menuitems(): array {
         return [
             'tiny_wordimport/plugin',
         ];
     }
 
+    /**
+     * Pass options to the WordImport editor plugin.
+     *
+     * @param context $context
+     * @param array $options
+     * @param array $fpoptions
+     * @param \editor_tiny\editor|null $editor
+     * @return array
+     */
     public static function get_plugin_configuration_for_context(
         context $context,
         array $options,

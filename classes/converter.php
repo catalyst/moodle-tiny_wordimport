@@ -16,6 +16,7 @@
 
 /**
  * Tiny text editor import of Microsoft Word files.
+ *
  * This if forked from atto_wordimport.
  *
  * @package    tiny_wordimport
@@ -33,6 +34,9 @@ require_once($CFG->dirroot . '/repository/lib.php');
 
 use booktool_wordimport\wordconverter;
 
+/**
+ * See the only static function this class contains.
+ */
 class converter {
     /**
      * Extract the WordProcessingML XML files from the .docx file, and use a sequence of XSLT
