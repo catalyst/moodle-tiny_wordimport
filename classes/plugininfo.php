@@ -31,6 +31,9 @@ use editor_tiny\plugin_with_buttons;
 use editor_tiny\plugin_with_menuitems;
 use editor_tiny\plugin_with_configuration;
 
+/**
+ * Pluginfo class which handles all information which is passed to the TinyMCE editor.
+ */
 class plugininfo extends plugin implements plugin_with_configuration, plugin_with_buttons, plugin_with_menuitems {
     /**
      * Add buttons to Tiny-Editor.
