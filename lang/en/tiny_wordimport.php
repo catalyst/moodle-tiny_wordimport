@@ -19,7 +19,8 @@
  *
  * @package     tiny_wordimport
  * @category    string
- * @copyright   2023 André Menrath <andre.menrath@uni-graz.at>
+ * @copyright   2024 University of Graz
+ * @author      André Menrath <andre.menrath@uni-graz.at>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
