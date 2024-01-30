@@ -1,0 +1,18 @@
+stages:
+  - test
+
+.add_plugin_dependecies:
+  before_script:
+  - echo "No dependencies"
+
+include:
+  - project: '715-scrum1/grp_moodle/ci-cd-templates'
+    file:
+      - 'moodle-plugin-ci.yml'
+
+moodle_plugin_ci:
+  parallel:
+    matrix:
+      - MOODLE_BRANCH: [MOODLE_403_STABLE]
+        MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.1"]
+        POSTGRES_IMAGE: ["postgres:14-alpine"]
