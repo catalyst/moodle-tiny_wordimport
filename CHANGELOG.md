@@ -1,0 +1,21 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [v1.0.1]
+
+### Added
+
+- Compatibility with Moodle 4.3
+
+## [v1.0.0] - 2023-05-12
+
+### Added
+
+- Initial Release for Moodle 4.1
+
