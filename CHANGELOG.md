@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add tiny/wordimport:add capability
+
 ## [v1.0.1]
 
 ### Added
