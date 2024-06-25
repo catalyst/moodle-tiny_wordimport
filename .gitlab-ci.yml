@@ -13,6 +13,6 @@ include:
 moodle_plugin_ci:
   parallel:
     matrix:
-      - MOODLE_BRANCH: [MOODLE_403_STABLE]
+      - MOODLE_BRANCH: [MOODLE_403_STABLE, MOODLE_404_STABLE]
         MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.1"]
         POSTGRES_IMAGE: ["postgres:14-alpine"]
