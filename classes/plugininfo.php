@@ -70,7 +70,7 @@ class plugininfo extends plugin implements plugin_with_configuration, plugin_wit
         context $context,
         array $options,
         array $fpoptions,
-        \editor_tiny\editor $editor = null
+        ?\editor_tiny\editor $editor = null
     ): bool {
         return has_capability('tiny/wordimport:add', $context);
     }

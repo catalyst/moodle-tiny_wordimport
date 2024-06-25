@@ -28,4 +28,3 @@ Feature: Tiny editor admin settings for wordimport plugin
   Scenario: When a user does have the wordimport capability, they can import a word file in TinyMCE
     Given I am on the PageName1 "page activity editing" page logged in as teacher1
     Then "Insert Word File" "button" should exist
-
