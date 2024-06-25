@@ -27,8 +27,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['button_wordimport'] = 'Insert Word File';
+$string['heading1stylelevel'] = 'Heading element level for Heading 1 style';
+$string['heading1stylelevel_desc'] = 'HTML heading element level to which the Word "Heading 1" style should be mapped';
 $string['menuitem_wordimport'] = 'Insert Word File';
 $string['pluginname'] = 'Microsoft Word File Import (TinyMCE)';
 $string['privacy:metadata'] = 'Microsoft Word File Import (TinyMCE) does not store any personal data';
-$string['heading1stylelevel'] = 'Heading element level for Heading 1 style';
-$string['heading1stylelevel_desc'] = 'HTML heading element level to which the Word "Heading 1" style should be mapped';
