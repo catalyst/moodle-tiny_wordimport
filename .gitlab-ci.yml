@@ -72,6 +72,6 @@ moodle_plugin_ci:
 
   parallel:
     matrix:
-      - MOODLE_BRANCH: [MOODLE_4045_STABLE]
+      - MOODLE_BRANCH: [MOODLE_405_STABLE]
         MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.2"]
         POSTGRES_IMAGE: ["postgres:14-alpine"]
