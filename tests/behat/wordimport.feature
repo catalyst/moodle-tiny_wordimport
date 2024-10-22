@@ -35,6 +35,7 @@ Feature: Tiny editor admin settings for wordimport plugin
     When I click on the "Import Word File" button for the "Page content" TinyMCE editor
     And I upload "/lib/editor/tiny/plugins/wordimport/tests/behat/fixtures/sample.docx" to the file picker
     And I click on the "View > Source code" menu item for the "Page content" TinyMCE editor
+    And I should see "Source code"
     # The Heading
     Then I should find this multiline source code within the "Page content" TinyMCE editor:
       """

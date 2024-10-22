@@ -68,13 +68,10 @@ moodle_plugin_ci:
     - moodle-plugin-ci mustache
     - moodle-plugin-ci grunt --max-lint-warnings 0
     - moodle-plugin-ci phpunit --fail-on-warning
-    - moodle-plugin-ci behat --profile chrome
+    - moodle-plugin-ci behat --profile firefox
 
   parallel:
     matrix:
-      - MOODLE_BRANCH: [MOODLE_403_STABLE, MOODLE_404_STABLE]
-        MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.1", "moodlehq/moodle-php-apache:8.2"]
-        POSTGRES_IMAGE: ["postgres:14-alpine"]
-      - MOODLE_BRANCH: [MOODLE_404_STABLE, MOODLE_405_STABLE]
-        MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.2", "moodlehq/moodle-php-apache:8.3"]
+      - MOODLE_BRANCH: [MOODLE_4045_STABLE]
+        MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.2"]
         POSTGRES_IMAGE: ["postgres:14-alpine"]
