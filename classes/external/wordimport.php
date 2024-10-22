@@ -39,6 +39,7 @@ use tiny_wordimport\converter;
  * @package    tiny_wordimport
  * @copyright  2023 André Menrath <andre.menrath@uni-graz.at>
  *             2023 Huong Nguyen <huongnv13@gmail.com>
+ *             Eoin Campbell
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class wordimport extends external_api {
@@ -49,7 +50,7 @@ class wordimport extends external_api {
      */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
-            'itemid' => new external_value(PARAM_RAW, 'The file id of the draft upload', VALUE_REQUIRED),
+            'itemid' => new external_value(PARAM_INT, 'The file id of the draft upload', VALUE_REQUIRED),
             'contextid' => new external_value(PARAM_INT, 'The context ID', VALUE_REQUIRED),
             'filename' => new external_value(PARAM_TEXT, 'The filename of the imported word file', VALUE_REQUIRED),
         ]);
