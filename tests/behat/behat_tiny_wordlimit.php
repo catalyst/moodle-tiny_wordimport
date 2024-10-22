@@ -52,6 +52,8 @@ class behat_tiny_wordlimit extends behat_base implements \core_behat\settable_ed
      *       See MDL-76001 for details.
      *
      * @Given /^I upload "(?P<filepath_string>(?:[^"]|\\")*)" to the file picker$/
+     *
+     * @param string $filepath The relative file path of the file from Moodles dirroot.
      */
     public function i_upload_a_file_in_the_filepicker(string $filepath): void {
         // Ensure that we are on the "Upload a file" repository plugin.
