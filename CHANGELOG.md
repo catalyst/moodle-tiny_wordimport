@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [v1.1.1]
+
+### Added
+
+- Compatibility with Moodle 4.5
+- Behat that that actually test importing a Word file
+
+### Fixed
+
+- External service parameter type
+- Improve Readme to clarify that only the .docx file format is supported
+
+### Improved
+
 ## [v1.1.0]
 
 ### Added
