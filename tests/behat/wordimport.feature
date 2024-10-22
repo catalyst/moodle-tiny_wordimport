@@ -34,6 +34,7 @@ Feature: Tiny editor admin settings for wordimport plugin
     Given I am on the "PageName1" "page activity editing" page logged in as "teacher1"
     When I click on the "Import Word File" button for the "Page content" TinyMCE editor
     And I upload "/lib/editor/tiny/plugins/wordimport/tests/behat/fixtures/sample.docx" to the file picker
+    And I wait "10" seconds
     And I click on the "View > Source code" menu item for the "Page content" TinyMCE editor
     And I should see "Source code"
     # The Heading
