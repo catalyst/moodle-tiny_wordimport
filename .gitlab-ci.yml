@@ -72,6 +72,7 @@ moodle_plugin_ci:
     - ls -a $CI_PROJECT_DIR/moodledata/behat_dump/
 
   artifacts:
+    when: on_failure
     paths:
       - $CI_PROJECT_DIR/moodledata/behat_dump/*
     expire_in: 1 week
