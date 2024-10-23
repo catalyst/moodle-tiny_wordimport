@@ -68,11 +68,12 @@ moodle_plugin_ci:
     - moodle-plugin-ci mustache
     - moodle-plugin-ci grunt --max-lint-warnings 0
     - moodle-plugin-ci phpunit --fail-on-warning
-    - ls -a $CI_PROJECT_DIR/moodledata
     - moodle-plugin-ci behat --profile chrome
+    - ls -a $CI_PROJECT_DIR/moodledata/behat_dump/
+
   artifacts:
     paths:
-      - $CI_PROJECT_DIR//moodledata/behat_dump/
+      - $CI_PROJECT_DIR/moodledata/behat_dump/*
     expire_in: 1 week
 
   parallel:
