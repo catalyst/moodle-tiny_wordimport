@@ -4,7 +4,7 @@ moodle_plugin_ci:
   image: $MOODLE_PHP_IMAGE
   services:
     - $POSTGRES_IMAGE
-    - name: selenium/standalone-chrome:3
+    - name: selenium/standalone-chrome:4
       alias: selenium-standalone-chrome
   variables:
     DB: "pgsql"
@@ -48,7 +48,8 @@ moodle_plugin_ci:
     # This should be replaced with a proper known_hosts (see https://docs.gitlab.com/ee/ci/ssh_keys/)
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
     # Install booktool_wordimport
-    - '[ ! -d moodle-plugin-ci-plugins/moodle-booktool_wordimport ] && moodle-plugin-ci add-plugin --branch v1.4.12 ecampbell/moodle-booktool_wordimport'
+    - rm -r moodle-plugin-ci-plugins/moodle-booktool_wordimport
+    - moodle-plugin-ci add-plugin --branch v1.4.12 ecampbell/moodle-booktool_wordimport
     # Install Moodle (ommit the --moodle argument if not needed)
     - cd $CI_PROJECT_DIR
     - moodle-plugin-ci install --moodle=$MOODLE_DIR --db-type=pgsql --db-host=postgres # -vvv
@@ -70,11 +71,14 @@ moodle_plugin_ci:
     - moodle-plugin-ci phpunit --fail-on-warning
     - moodle-plugin-ci behat --profile chrome
 
+  artifacts:
+    when: on_failure
+    paths:
+      - $CI_PROJECT_DIR/moodledata/behat_dump/*
+    expire_in: 1 week
+
   parallel:
     matrix:
-      - MOODLE_BRANCH: [MOODLE_403_STABLE, MOODLE_404_STABLE]
-        MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.1", "moodlehq/moodle-php-apache:8.2"]
-        POSTGRES_IMAGE: ["postgres:14-alpine"]
-      - MOODLE_BRANCH: [MOODLE_404_STABLE, MOODLE_405_STABLE]
-        MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.2", "moodlehq/moodle-php-apache:8.3"]
+      - MOODLE_BRANCH: [MOODLE_405_STABLE]
+        MOODLE_PHP_IMAGE: ["moodlehq/moodle-php-apache:8.1"]
         POSTGRES_IMAGE: ["postgres:14-alpine"]

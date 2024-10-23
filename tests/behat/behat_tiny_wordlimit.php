@@ -24,7 +24,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
- use Behat\Gherkin\Node\{PyStringNode};
+use Behat\Gherkin\Node\{PyStringNode};
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\DriverException;
 use Behat\Mink\Exception\ExpectationException;
@@ -138,7 +138,7 @@ class behat_tiny_wordlimit extends behat_base implements \core_behat\settable_ed
      * Gets the specified formatted multiline source code from the editor
      * and compares it to what is expected.
      *
-     * @copyright                2023 Matt Porritt <matt.porritt@moodle.com>
+     * @copyright 2023 Matt Porritt <matt.porritt@moodle.com>
      * @When /^I should find this multiline source code within the "(?P<locator_string>(?:[^"]|\\")*)" TinyMCE editor:$/
      * @throws ExpectationException
      * @param string $locator

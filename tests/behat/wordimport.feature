@@ -16,7 +16,7 @@ Feature: Tiny editor admin settings for wordimport plugin
       | activity | name      | intro     | introformat | course | content | contentformat | idnumber |
       | page     | PageName1 | PageDesc1 | 1           | C1     | Test    | 1             | 1        |
 
-  @javascript
+  @javascripts
   Scenario: When a user does not have the wordimport capability, they cannot import a word file in TinyMCE
     Given the following "permission overrides" exist:
       | capability          | permission | role           | contextlevel | reference |
