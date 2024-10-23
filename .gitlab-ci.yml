@@ -69,6 +69,10 @@ moodle_plugin_ci:
     - moodle-plugin-ci grunt --max-lint-warnings 0
     - moodle-plugin-ci phpunit --fail-on-warning
     - moodle-plugin-ci behat --profile chrome
+  artifacts:
+    paths:
+      - moodledata/behat_dump/*
+    expire_in: 1 week
 
   parallel:
     matrix:
