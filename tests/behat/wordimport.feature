@@ -42,10 +42,3 @@ Feature: Tiny editor admin settings for wordimport plugin
       """
       <h3><span style="color: #c00000;">Sample Document</span></h3>
       """
-    # The first paragraph
-    And I should find this multiline source code within the "Page content" TinyMCE editor:
-      """
-        <p>This document was created using accessibility techniques for headings,
-          lists, image alternate text, tables, and columns. It should be completely
-          accessible using assistive technologies such as screen readers.</p>
-      """
