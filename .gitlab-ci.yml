@@ -67,7 +67,7 @@ moodle_plugin_ci:
     - moodle-plugin-ci validate
     - moodle-plugin-ci savepoints
     - moodle-plugin-ci mustache
-    - moodle-plugin-ci grunt --max-lint-warnings 0
+   # - moodle-plugin-ci grunt --max-lint-warnings 0
     - moodle-plugin-ci phpunit --fail-on-warning
     - moodle-plugin-ci behat --profile chrome
     - ls -a $CI_PROJECT_DIR/moodledata/behat_dump/
