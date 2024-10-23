@@ -48,7 +48,8 @@ moodle_plugin_ci:
     # This should be replaced with a proper known_hosts (see https://docs.gitlab.com/ee/ci/ssh_keys/)
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
     # Install booktool_wordimport
-    - '[ ! -d moodle-plugin-ci-plugins/moodle-booktool_wordimport ] && moodle-plugin-ci add-plugin --branch v1.4.12 ecampbell/moodle-booktool_wordimport'
+    - rm -r moodle-plugin-ci-plugins/moodle-booktool_wordimport
+    - moodle-plugin-ci add-plugin --branch v1.4.12 ecampbell/moodle-booktool_wordimport
     # Install Moodle (ommit the --moodle argument if not needed)
     - cd $CI_PROJECT_DIR
     - moodle-plugin-ci install --moodle=$MOODLE_DIR --db-type=pgsql --db-host=postgres -vvv
@@ -58,7 +59,6 @@ moodle_plugin_ci:
     - php admin/tool/behat/cli/init.php --add-core-features-to-theme --parallel=1 --optimize-runs=@local_ffhs_exam_toolbox
   script:
     # Documentation for each step: https://moodlehq.github.io/moodle-plugin-ci/Help.html
-    - php -i | grep xsl
     - moodle-plugin-ci phplint
     - moodle-plugin-ci phpcpd
     - moodle-plugin-ci phpmd
@@ -67,10 +67,9 @@ moodle_plugin_ci:
     - moodle-plugin-ci validate
     - moodle-plugin-ci savepoints
     - moodle-plugin-ci mustache
-   # - moodle-plugin-ci grunt --max-lint-warnings 0
+    - moodle-plugin-ci grunt --max-lint-warnings 0
     - moodle-plugin-ci phpunit --fail-on-warning
     - moodle-plugin-ci behat --profile chrome
-    - ls -a $CI_PROJECT_DIR/moodledata/behat_dump/
 
   artifacts:
     when: on_failure
