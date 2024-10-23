@@ -31,6 +31,8 @@ import {
     displayUploadNotification,
     updateNotificationProgress
 } from './ui';
+import Notification from 'core/notification';
+
 
 /**
  * Handler that inserts a dragged and dropped docx word file into the editor.
@@ -47,8 +49,7 @@ export const droppedWordFileHandler = async(editor, file) => {
         const content = await getProcessedDocxContent(draftId, getContextId(editor), file.name);
         insertRawHtml(editor, content);
     } catch (error) {
-        // TODO: display errors properly
-        window.console.log(error);
+        Notification.exception(error);
     }
 };
 
@@ -63,8 +64,7 @@ export const importWordFileHandler = async(editor) => {
         const content = await getProcessedDocxContent(file.id, getContextId(editor), file.file);
         insertRawHtml(editor, content);
     } catch (error) {
-        // TODO: display errors properly
-        alert(error);
+        Notification.exception(error);
     }
 };
 
