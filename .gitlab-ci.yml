@@ -52,7 +52,7 @@ moodle_plugin_ci:
     - moodle-plugin-ci add-plugin --branch v1.4.12 ecampbell/moodle-booktool_wordimport
     # Install Moodle (ommit the --moodle argument if not needed)
     - cd $CI_PROJECT_DIR
-    - moodle-plugin-ci install --moodle=$MOODLE_DIR --db-type=pgsql --db-host=postgres -vvv
+    - moodle-plugin-ci install --moodle=$MOODLE_DIR --db-type=pgsql --db-host=postgres # -vvv
     - cd $MOODLE_DIR
     - composer install
     - php -S $IPADDRESS:8000 -t $MOODLE_DIR > /dev/null 2>&1 &

@@ -14,9 +14,9 @@ Feature: Tiny editor admin settings for wordimport plugin
       | teacher1 | C1     | editingteacher |
     And the following "activities" exist:
       | activity | name      | intro     | introformat | course | content | contentformat | idnumber |
-      | page     | PageName1 | PageDesc1 | 1           | C1     |         | 1             | 1        |
+      | page     | PageName1 | PageDesc1 | 1           | C1     | Test    | 1             | 1        |
 
-  @javascript
+  @javascripts
   Scenario: When a user does not have the wordimport capability, they cannot import a word file in TinyMCE
     Given the following "permission overrides" exist:
       | capability          | permission | role           | contextlevel | reference |
@@ -34,12 +34,16 @@ Feature: Tiny editor admin settings for wordimport plugin
     Given I am on the "PageName1" "page activity editing" page logged in as "teacher1"
     When I click on the "Import Word File" button for the "Page content" TinyMCE editor
     And I upload "/lib/editor/tiny/plugins/wordimport/tests/behat/fixtures/sample.docx" to the file picker
-    And I wait "3" seconds
     And I click on the "View > Source code" menu item for the "Page content" TinyMCE editor
-    And I should see "Source code"
-    And I wait "10" seconds
     # The Heading
     Then I should find this multiline source code within the "Page content" TinyMCE editor:
       """
       <h3><span style="color: #c00000;">Sample Document</span></h3>
+      """
+    # The first paragraph
+    And I should find this multiline source code within the "Page content" TinyMCE editor:
+      """
+        <p>This document was created using accessibility techniques for headings,
+          lists, image alternate text, tables, and columns. It should be completely
+          accessible using assistive technologies such as screen readers.</p>
       """
