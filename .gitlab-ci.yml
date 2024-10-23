@@ -69,6 +69,7 @@ moodle_plugin_ci:
     - moodle-plugin-ci grunt --max-lint-warnings 0
     - moodle-plugin-ci phpunit --fail-on-warning
     - ls -a $MOODLE_DIR/moodledata
+    - ls -a $CI_PROJECT_DIR/moodledata
     - moodle-plugin-ci behat --profile chrome
   artifacts:
     paths:
