@@ -31,4 +31,4 @@ Your involvement is what drives this plugin forward.
 We would like to express our gratitude to the following contributors:
 
 - Bern University of Applied Sciences (BFH), Luca Bösch: Code
-- Dan Marsden : Review
+- Dan Marsden: Review
