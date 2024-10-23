@@ -72,6 +72,8 @@ class plugininfo extends plugin implements plugin_with_configuration, plugin_wit
         array $fpoptions,
         ?\editor_tiny\editor $editor = null
     ): bool {
+        // Hack to make neither PHP Code Checker nor PHP Mess Detector complain.
+        unset($options, $fpoptions, $editor);
         return has_capability('tiny/wordimport:add', $context);
     }
 
@@ -90,9 +92,10 @@ class plugininfo extends plugin implements plugin_with_configuration, plugin_wit
         array $fpoptions,
         ?\editor_tiny\editor $editor = null
     ): array {
-        // Test.
-        $args = new \stdClass();
+        // Hack to make neither PHP Code Checker nor PHP Mess Detector complain.
+        unset($options, $fpoptions, $editor);
         // Need these three to filter repositories list.
+        $args = new \stdClass();
         $args->accepted_types = ['.docx'];
         $args->return_types = (FILE_INTERNAL | FILE_EXTERNAL);
         $args->context = $context;

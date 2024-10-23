@@ -1,4 +1,4 @@
-@editor @editor_tiny @tiny @tiny_wordimport @javascript
+@editor @editor_tiny @tiny @tiny_wordimport
 Feature: Tiny editor admin settings for wordimport plugin
   To be able to actually import word documents in the editor, the capability must be given.
 
@@ -21,10 +21,29 @@ Feature: Tiny editor admin settings for wordimport plugin
     Given the following "permission overrides" exist:
       | capability          | permission | role           | contextlevel | reference |
       | tiny/wordimport:add | Prohibit   | editingteacher | Course       | C1        |
-    When I am on the PageName1 "page activity editing" page logged in as teacher1
-    Then "Insert Word File" "button" should not exist
+    When I am on the "PageName1" "page activity editing" page logged in as "teacher1"
+    Then "Import Word File" "button" should not exist
 
   @javascript
   Scenario: When a user does have the wordimport capability, they can import a word file in TinyMCE
-    Given I am on the PageName1 "page activity editing" page logged in as teacher1
-    Then "Insert Word File" "button" should exist
+    Given I am on the "PageName1" "page activity editing" page logged in as "teacher1"
+    Then "Import Word File" "button" should exist
+
+  @javascript @_file_upload
+  Scenario: A teacher imports a word file in TinyMCE within a page activity.
+    Given I am on the "PageName1" "page activity editing" page logged in as "teacher1"
+    When I click on the "Import Word File" button for the "Page content" TinyMCE editor
+    And I upload "/lib/editor/tiny/plugins/wordimport/tests/behat/fixtures/sample.docx" to the file picker
+    And I click on the "View > Source code" menu item for the "Page content" TinyMCE editor
+    # The Heading
+    Then I should find this multiline source code within the "Page content" TinyMCE editor:
+      """
+      <h3><span style="color: #c00000;">Sample Document</span></h3>
+      """
+    # The first paragraph
+    And I should find this multiline source code within the "Page content" TinyMCE editor:
+      """
+        <p>This document was created using accessibility techniques for headings,
+          lists, image alternate text, tables, and columns. It should be completely
+          accessible using assistive technologies such as screen readers.</p>
+      """
