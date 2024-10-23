@@ -4,7 +4,7 @@ moodle_plugin_ci:
   image: $MOODLE_PHP_IMAGE
   services:
     - $POSTGRES_IMAGE
-    - name: selenium/standalone-chrome:120
+    - name: selenium/standalone-chrome:120.0
       alias: selenium-standalone-chrome
   variables:
     DB: "pgsql"
