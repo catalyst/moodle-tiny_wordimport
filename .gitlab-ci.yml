@@ -58,6 +58,7 @@ moodle_plugin_ci:
     - php admin/tool/behat/cli/init.php --add-core-features-to-theme --parallel=1 --optimize-runs=@local_ffhs_exam_toolbox
   script:
     # Documentation for each step: https://moodlehq.github.io/moodle-plugin-ci/Help.html
+    - php -i | grep xsl
     - moodle-plugin-ci phplint
     - moodle-plugin-ci phpcpd
     - moodle-plugin-ci phpmd
