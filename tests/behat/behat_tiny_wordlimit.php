@@ -111,28 +111,6 @@ class behat_tiny_wordlimit extends behat_base implements \core_behat\settable_ed
     }
 
     /**
-     * Normalise the path to a fixture file.
-     *
-     * @param string $filepath The path relative to the CFG->dirroot.
-     * @return string A fully-qualified and normalised filepath
-     * @throws ExpectationException If the file is not found
-     */
-    protected function normalise_fixture_filepath(string $filepath): string {
-        global $CFG;
-
-        $filepath = str_replace('/', DIRECTORY_SEPARATOR, $filepath);
-        if (!is_readable($filepath)) {
-            $filepath = $CFG->dirroot . DIRECTORY_SEPARATOR . $filepath;
-            if (!is_readable($filepath)) {
-                throw new ExpectationException('The file to be uploaded does not exist.', $this->getSession());
-            }
-        }
-
-        return $filepath;
-    }
-
-
-    /**
      * Get Javascript to navigate to the shadow DOM of the editor,
      * and find specified sourcecode text.
      *
