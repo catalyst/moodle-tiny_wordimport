@@ -48,6 +48,8 @@ steps:
       - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
       - chmod u+x ci/bin/moodle-plugin-ci
       # Initialize moodle-plugin-ci
+      - rm -fr moodle-plugin-ci-plugins/moodle-booktool_wordimport
+      - moodle-plugin-ci add-plugin --branch v1.4.12 ecampbell/moodle-booktool_wordimport
       - moodle-plugin-ci install --plugin $CI_WORKSPACE --db-type=pgsql --db-host=postgres
       # Run behat tests
       - export MOODLE_DIR="$CI_WORKSPACE/../moodle"
