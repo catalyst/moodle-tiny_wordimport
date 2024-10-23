@@ -4,7 +4,7 @@ when:
   - event: pull_request
 
 variables:
-  - &moodle_image 'moodlehq/moodle-php-apache:8.3'
+  - &moodle_image 'moodlehq/moodle-php-apache:8.1'
   - &database_image 'postgres:16-alpine'
 
 matrix:
