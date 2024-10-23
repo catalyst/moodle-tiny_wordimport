@@ -71,7 +71,7 @@ moodle_plugin_ci:
     - moodle-plugin-ci behat --profile chrome
   artifacts:
     paths:
-      - moodledata/behat_dump/*
+      - /var/www/html/moodle/moodledata/behat_dump/
     expire_in: 1 week
 
   parallel:
