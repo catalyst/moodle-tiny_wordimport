@@ -14,7 +14,7 @@ Feature: Tiny editor admin settings for wordimport plugin
       | teacher1 | C1     | editingteacher |
     And the following "activities" exist:
       | activity | name      | intro     | introformat | course | content | contentformat | idnumber |
-      | page     | PageName1 | PageDesc1 | 1           | C1     | Test    | 1             | 1        |
+      | page     | PageName1 | PageDesc1 | 1           | C1     |         | 1             | 1        |
 
   @javascript
   Scenario: When a user does not have the wordimport capability, they cannot import a word file in TinyMCE
@@ -37,6 +37,7 @@ Feature: Tiny editor admin settings for wordimport plugin
     And I wait "10" seconds
     And I click on the "View > Source code" menu item for the "Page content" TinyMCE editor
     And I should see "Source code"
+    And I wait "10" seconds
     # The Heading
     Then I should find this multiline source code within the "Page content" TinyMCE editor:
       """
