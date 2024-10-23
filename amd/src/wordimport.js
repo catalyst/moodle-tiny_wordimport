@@ -64,7 +64,7 @@ export const importWordFileHandler = async(editor) => {
         insertRawHtml(editor, content);
     } catch (error) {
         // TODO: display errors properly
-        window.console.log(error);
+        alert(error);
     }
 };
 
