@@ -48,7 +48,7 @@ moodle_plugin_ci:
     # This should be replaced with a proper known_hosts (see https://docs.gitlab.com/ee/ci/ssh_keys/)
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config
     # Install booktool_wordimport
-    - rm -r moodle-plugin-ci-plugins/moodle-booktool_wordimport
+    - rm -rf moodle-plugin-ci-plugins/moodle-booktool_wordimport
     - moodle-plugin-ci add-plugin --branch v1.4.12 ecampbell/moodle-booktool_wordimport
     # Install Moodle (ommit the --moodle argument if not needed)
     - cd $CI_PROJECT_DIR
