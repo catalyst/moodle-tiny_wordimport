@@ -1,4 +1,4 @@
-# moodle-tiny_wordlimit
+# moodle-tiny_wordimport
 This plugin allows for importing Microsoft Word Files (.docx) to Moodle within the new TinyMCE editor.
 
 ## Requirements

@@ -42,7 +42,7 @@ require_once(__DIR__ . '/../../../../../../../lib/behat/core_behat_file_helper.p
  *             2023 Matt Porritt <matt.porritt@moodle.com>
  *             2022 Andrew Nicols
  */
-class behat_tiny_wordlimit extends behat_base implements \core_behat\settable_editor {
+class behat_tiny_wordimport extends behat_base implements \core_behat\settable_editor {
     use editor_tiny_helpers;
 
     /**

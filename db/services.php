@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * External service definitions for tiny_wordlimit.
+ * External service definitions for tiny_wordimport.
  *
  * @package   tiny_wordimport
  * @copyright 2023 University of Graz
