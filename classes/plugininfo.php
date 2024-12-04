@@ -25,6 +25,10 @@
 
 namespace tiny_wordimport;
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->dirroot . '/repository/lib.php');
+
 use context;
 use editor_tiny\plugin;
 use editor_tiny\plugin_with_buttons;
