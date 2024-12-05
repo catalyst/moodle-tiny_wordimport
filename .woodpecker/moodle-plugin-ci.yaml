@@ -1,7 +1,9 @@
 when:
-  - branch: main
-    event: push
+  - event: push
+    branch: main
   - event: pull_request
+  - event: tag
+    ref: refs/tags/v*
 
 variables:
   - &moodle_image 'moodlehq/moodle-php-apache:8.1'
