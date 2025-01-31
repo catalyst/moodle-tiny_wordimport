@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'forgejo_actions'
   pull_request:
 
 jobs:
@@ -18,7 +17,7 @@ jobs:
           POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
         ports:
-          - 5432:5432
+          - 54329:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     strategy:
@@ -56,6 +55,7 @@ jobs:
         run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
+          DB_PORT: '54329'
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
           # Uncomment this to run Behat tests using the Moodle App.
           # MOODLE_APP: 'true'
