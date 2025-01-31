@@ -36,10 +36,10 @@ jobs:
       - name: Install and cache needed system packages
         uses: https://github.com/awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: locale-gen
+          packages: locales
           version: 1.0
 
-      - name: Setup PHP ${{ matrix.php }}
+      - name: ${{ format('Setup PHP ({0})', matrix.php) }}
         uses: https://github.com/shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
