@@ -11,14 +11,13 @@ jobs:
     runs-on: codeberg-tiny
 
     services:
-      postgres:
-        image: postgres:13
+      pgsql:
+        image: data.forgejo.org/oci/bitnami/postgresql:15
         env:
-          POSTGRES_USER: 'postgres'
           POSTGRES_HOST_AUTH_METHOD: 'trust'
-        ports:
-          - 54329:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+          POSTGRESQL_FSYNC: off
+          POSTGRESQL_EXTRA_FLAGS: -c full_page_writes=off
+        options: --tmpfs /bitnami/postgresql
 
     strategy:
       fail-fast: false
