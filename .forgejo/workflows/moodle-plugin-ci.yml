@@ -33,6 +33,12 @@ jobs:
         with:
           path: plugin
 
+      - name: Install locales
+        uses: https://github.com/awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: locages
+          version: 1.0
+
       - name: Setup PHP
         uses: https://github.com/shivammathur/setup-php@v2
         with:
