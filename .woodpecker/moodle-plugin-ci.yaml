@@ -116,7 +116,7 @@ steps:
       # Install nvm and NodeJS
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
       - . $NVM_DIR/nvm.sh
-      - nvm install --default --latest-npm lts/iron
+      - nvm install --default --latest-npm lts/jod
       # Run Grunt
       - moodle-plugin-ci grunt --max-lint-warnings 0
 
