@@ -37,7 +37,7 @@ steps:
       # Install nvm and NodeJS
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh | bash
       - . $NVM_DIR/nvm.sh
-      - nvm install --default --latest-npm lts/iron
+      - nvm install --default --latest-npm lts/jod
       # Install composer
       - curl -sS https://getcomposer.org/installer | php
       - mv composer.phar /usr/local/bin/composer
