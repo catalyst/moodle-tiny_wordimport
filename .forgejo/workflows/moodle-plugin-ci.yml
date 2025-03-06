@@ -12,12 +12,9 @@ jobs:
 
     services:
       pgsql:
-        image: data.forgejo.org/oci/bitnami/postgresql:15
+        image: code.forgejo.org/oci/postgres:15
         env:
           POSTGRES_HOST_AUTH_METHOD: 'trust'
-          POSTGRESQL_FSYNC: off
-          POSTGRESQL_EXTRA_FLAGS: -c full_page_writes=off
-        options: --tmpfs /bitnami/postgresql
 
     strategy:
       fail-fast: false
