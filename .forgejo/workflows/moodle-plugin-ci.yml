@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: codeberg-tiny
+    runs-on: codeberg-small
 
     services:
       pgsql:
