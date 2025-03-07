@@ -56,7 +56,7 @@ jobs:
           NVM_VERSION: 'v0.40.1'
 
       - name: Install moodle-plugin-ci
-        run: moodle-plugin-ci install --plugin ./plugin --db-host=pgsql
+        run: moodle-plugin-ci install --plugin ./plugin --db-type=pgsql --db-host=pgsql -vvv
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
