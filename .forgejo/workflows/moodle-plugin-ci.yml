@@ -66,6 +66,7 @@ jobs:
       - name: Install moodle-plugin-ci
         run: |
           export MOODLE_BEHAT_WWWROOT="http://$(grep "$HOSTNAME$" /etc/hosts | awk '{print $1}'):8000"
+          moodle-plugin-ci add-plugin https://github.com/ecampbell/moodle-booktool_wordimport.git --branch v1.4.14
           moodle-plugin-ci install --plugin ./plugin --db-type=pgsql --db-host=pgsql
         env:
           COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.OAUTH_TOKEN_GITHUB }}"}}'
